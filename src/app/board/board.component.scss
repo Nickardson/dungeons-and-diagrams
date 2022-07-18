@@ -1,0 +1,16 @@
+.board {
+  display: grid;
+  font-size: 2em;
+  cursor: default;
+  user-select: none;
+}
+
+.square {
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1em;
+}

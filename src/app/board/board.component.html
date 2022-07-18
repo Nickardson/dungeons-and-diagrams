@@ -1,0 +1,5 @@
+<div *ngIf="board" class="board" [style.grid-template-columns]="'repeat(' + board.width + ', 2em)'"  [style.grid-template-rows]="'repeat(' + board.height + ', 2em)'">
+  <div *ngFor="let square of board" class="square" [ngStyle]="getSquareStyle(square)">
+    {{getSquareContents(square.square)}}
+  </div>
+</div>
