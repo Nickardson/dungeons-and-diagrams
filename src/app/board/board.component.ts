@@ -16,10 +16,25 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getColumnGuideStyle(x: number): { [clazz: string]: unknown } {
+    return {
+      'grid-column': x + 2,
+      'grid-row': 1,
+    }
+  }
+
+  getRowGuideStyle(y: number): { [clazz: string]: unknown } {
+    return {
+      'grid-column': 1,
+      'grid-row': y + 2,
+    }
+  }
+
   getSquareStyle(square: { x: number, y: number, square: BoardSquare }): { [clazz: string]: unknown } {
     return {
-      'grid-column': square.x + 1,
-      'grid-row': square.y + 1,
+      'grid-column': square.x + 1 + 1,
+      'grid-row': square.y + 1 + 1,
+      'background': square.square === BoardSquare.Wall ? '#5a442d' : undefined,
     }
   }
 
@@ -29,8 +44,8 @@ export class BoardComponent implements OnInit {
         return String.fromCodePoint(0x1F984);
       case BoardSquare.TreasureChest:
         return String.fromCodePoint(0x1FA99);
-      case BoardSquare.Wall:
-        return String.fromCodePoint(0x1F7EB);
+      // case BoardSquare.Wall:
+      //   return String.fromCodePoint(0x1F7EB);
       default:
         return '';
     }

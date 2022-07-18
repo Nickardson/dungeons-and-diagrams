@@ -3,14 +3,27 @@
   font-size: 2em;
   cursor: default;
   user-select: none;
+  width: fit-content;
 }
 
-.square {
+.outside {
+  outline: 0.25em solid #402b15;
+  grid-row: 2 / -1;
+  grid-column: 2 / -1;
+}
+
+.square,
+.guide {
   width: 100%;
   height: 100%;
-  border: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.square {
+  // border: 1px solid #988d82;
+  // outline: 0.05em solid #988d82;
+  outline: 0.05em solid #160d0380;
   line-height: 1em;
 }

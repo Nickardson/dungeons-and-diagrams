@@ -1,4 +1,14 @@
-<div *ngIf="board" class="board" [style.grid-template-columns]="'repeat(' + board.width + ', 2em)'"  [style.grid-template-rows]="'repeat(' + board.height + ', 2em)'">
+<div *ngIf="board" class="board" [style.grid-template-columns]="'repeat(' + (board.width + 1) + ', 2em)'"
+  [style.grid-template-rows]="'repeat(' + (board.height + 1) + ', 2em)'">
+  <div class="outside"></div>
+  <div *ngFor="let count of board.getColumnGuides(); index as index" class="guide"
+    [ngStyle]="getColumnGuideStyle(index)">
+    {{count}}
+  </div>
+  <div *ngFor="let count of board.getRowGuides(); index as index" class="guide" [ngStyle]="getRowGuideStyle(index)">
+    {{count}}
+  </div>
+
   <div *ngFor="let square of board" class="square" [ngStyle]="getSquareStyle(square)">
     {{getSquareContents(square.square)}}
   </div>
