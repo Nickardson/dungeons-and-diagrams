@@ -1,15 +1,24 @@
-<div *ngIf="board" class="board" [style.grid-template-columns]="'repeat(' + (board.width + 1) + ', 2em)'"
-  [style.grid-template-rows]="'repeat(' + (board.height + 1) + ', 2em)'">
+<div *ngIf="board" class="board" [style.grid-template-columns]="'repeat(' + (board.width + 1 + 1) + ', ' + getGridSize() + ')'"
+  [style.grid-template-rows]="'repeat(' + (board.height + 1 + 1) + ', ' + getGridSize() + ')'">
   <div class="outside"></div>
-  <div *ngFor="let count of board.getColumnGuides(); index as index" class="guide"
-    [ngStyle]="getColumnGuideStyle(index)">
-    {{count}}
-  </div>
-  <div *ngFor="let count of board.getRowGuides(); index as index" class="guide" [ngStyle]="getRowGuideStyle(index)">
-    {{count}}
-  </div>
 
-  <div *ngFor="let square of board" class="square" [ngStyle]="getSquareStyle(square)">
+  <ng-container *ngIf="solution">
+    <div *ngFor="let count of solution.getColumnGuides(); index as index"
+      [class.guide--complete]="solution && count === board.countWallsInColumn(index)"
+      [class.guide--overboard]="solution && count < board.countWallsInColumn(index)" class="guide"
+      [ngStyle]="getColumnGuideStyle(index)">
+      {{count}}
+    </div>
+    <div *ngFor="let count of solution.getRowGuides(); index as index"
+      [class.guide--complete]="solution && count === board.countWallsInRow(index)"
+      [class.guide--overboard]="solution && count < board.countWallsInRow(index)" class="guide"
+      [ngStyle]="getRowGuideStyle(index)">
+      {{count}}
+    </div>
+  </ng-container>
+
+  <div *ngFor="let square of board; trackBy: trackSquareFn" class="square" [ngStyle]="getSquareStyle(square)"
+    (mousedown)="onMouseDown($event, square)" (mouseenter)="onMouseEnter(square)" (contextmenu)="onContextMenu($event)">
     {{getSquareContents(square.square)}}
   </div>
 </div>

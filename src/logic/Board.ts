@@ -81,14 +81,22 @@ export class Board {
 
   private rebuildGuides() {
     for (let x = 0; x < this.width; x++) {
-      const notWalls = this.getSquaresInColumn(x).filter(s => s !== BoardSquare.Wall);
-      this.columnGuides[x] = this.height - notWalls.length;
+      this.columnGuides[x] = this.countWallsInColumn(x);
     }
 
     for (let y = 0; y < this.height; y++) {
-      const notWalls = this.getSquaresInRow(y).filter(s => s !== BoardSquare.Wall);
-      this.rowGuides[y] = this.width - notWalls.length;
+      this.rowGuides[y] = this.countWallsInRow(y);
     }
+  }
+
+  public countWallsInColumn(x: number): number {
+    const notWalls = this.getSquaresInColumn(x).filter(s => s !== BoardSquare.Wall);
+    return this.height - notWalls.length;
+  }
+
+  public countWallsInRow(y: number): number {
+    const notWalls = this.getSquaresInRow(y).filter(s => s !== BoardSquare.Wall);
+    return this.width - notWalls.length;
   }
 
   public getSquaresInRow(y: number): BoardSquare[] {
@@ -98,16 +106,24 @@ export class Board {
   public getSquaresInColumn(x: number): BoardSquare[] {
     return new Array(this.height).fill(BoardSquare.Open).map((_, y) => this.getSquareAt(x, y));
   }
+
+  public unsolve(): void {
+    for (let square of this) {
+      if (square.square === BoardSquare.Wall/* || square.square === BoardSquare.TreasureRoom*/) {
+        this.setSquareAt(square.x, square.y, BoardSquare.Open);
+      }
+    }
+  }
 }
 
-class BoardIterator implements Iterator<{ x: number, y: number, square: BoardSquare }> {
+class BoardIterator implements Iterator<BoardSquareLocation> {
   private x = 0;
   private y = 0;
 
   constructor(private readonly board: Board) {
   }
 
-  next(): IteratorResult<{ x: number, y: number, square: BoardSquare }, any> {
+  next(): IteratorResult<BoardSquareLocation, any> {
     const square = this.board.getSquareAt(this.x, this.y);
     const x = this.x;
     const y = this.y;
@@ -129,8 +145,15 @@ class BoardIterator implements Iterator<{ x: number, y: number, square: BoardSqu
 
 export enum BoardSquare {
   Open,
+  MarkedOpen,
   Wall,
-  TreasureRoom,
+  // TreasureRoom,
   TreasureChest,
   Monster
+}
+
+export interface BoardSquareLocation {
+  x: number;
+  y: number;
+  square: BoardSquare;
 }
