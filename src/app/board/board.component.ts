@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Input, OnInit } from '@angular/core';
-import { Board, BoardSquare, BoardSquareLocation } from 'src/logic/Board';
+import { Board } from 'src/logic/Board';
+import { BoardSquare } from "src/logic/BoardSquare";
+import { BoardSquareLocation } from "src/logic/BoardSquareLocation";
 
 @Component({
   selector: 'app-board',

@@ -1,3 +1,14 @@
+import { BoardIterator } from "./BoardIterator";
+import { BoardSquare } from "./BoardSquare";
+
+const charsToSquares = new Map<string, BoardSquare>();
+const squaresToChars = new Map<BoardSquare, string>();
+charsToSquares.set(' ', BoardSquare.Open);
+charsToSquares.set('X', BoardSquare.Wall);
+charsToSquares.set('!', BoardSquare.Monster);
+charsToSquares.set('$', BoardSquare.TreasureChest);
+charsToSquares.forEach((val, key) => squaresToChars.set(val, key));
+
 export class Board {
   private readonly grid: BoardSquare[][];
   private readonly columnGuides: number[];
@@ -17,6 +28,40 @@ export class Board {
 
     this.columnGuides = new Array(width).fill(0);
     this.rowGuides = new Array(height).fill(0);
+  }
+
+  public toString(): string {
+    const lines: string[] = [];
+    for (let y = 0; y < this.height; y++) {
+      lines.push(this.getSquaresInRow(y).map(s => squaresToChars.get(s)).join(''));
+    }
+
+    return lines.join('\n');
+  }
+
+  public static fromString(map: string): Board {
+    const lines = map
+      .split('\n')
+      .filter(line => line.length > 0);
+
+    if (lines.length === 0) {
+      return new Board(0, 0);
+    }
+
+    const width = lines.reduce((acc, line) => Math.max(line.length, acc), 0);
+    const height = lines.length;
+
+    const board = new Board(width, height);
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < lines[y].length; x++) {
+        const square = charsToSquares.get(lines[y].charAt(x));
+        if (square) {
+          board.setSquareAt(x, y, square);
+        }
+      }
+    }
+
+    return board;
   }
 
   public clone(): Board {
@@ -141,46 +186,4 @@ export class Board {
 
     return true;
   }
-}
-
-class BoardIterator implements Iterator<BoardSquareLocation> {
-  private x = 0;
-  private y = 0;
-
-  constructor(private readonly board: Board) {
-  }
-
-  next(): IteratorResult<BoardSquareLocation, any> {
-    const square = this.board.getSquareAt(this.x, this.y);
-    const x = this.x;
-    const y = this.y;
-
-    const isDone = this.y >= this.board.height;
-
-    this.x++;
-    if (this.x >= this.board.width) {
-      this.x = 0;
-      this.y++;
-    }
-
-    return {
-      done: isDone,
-      value: { square, x, y },
-    };
-  }
-}
-
-export enum BoardSquare {
-  Open,
-  MarkedOpen,
-  Wall,
-  // TreasureRoom,
-  TreasureChest,
-  Monster
-}
-
-export interface BoardSquareLocation {
-  x: number;
-  y: number;
-  square: BoardSquare;
 }
