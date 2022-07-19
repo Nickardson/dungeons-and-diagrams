@@ -73,8 +73,10 @@ export class BoardComponent implements OnInit {
     console.log('Touch start');
     if (square.square === BoardSquare.Open || square.square === BoardSquare.MarkedOpen) {
       this.board?.setSquareAt(square.x, square.y, BoardSquare.Wall);
+      this.boardChanged();
     } else if (square.square === BoardSquare.Wall) {
       this.board?.setSquareAt(square.x, square.y, BoardSquare.MarkedOpen);
+      this.boardChanged();
     }
 
     this.cdr.markForCheck();
@@ -110,6 +112,7 @@ export class BoardComponent implements OnInit {
 
     if (setTo !== undefined) {
       this.board?.setSquareAt(square.x, square.y, setTo);
+      this.boardChanged();
       this.cdr.markForCheck();
     }
 
@@ -125,6 +128,7 @@ export class BoardComponent implements OnInit {
         // case BoardSquare.TreasureRoom:
         case BoardSquare.Wall:
           this.board?.setSquareAt(square.x, square.y, this.heldButtonSetsTo);
+          this.boardChanged();
           this.cdr.markForCheck();
       }
     }
@@ -146,5 +150,18 @@ export class BoardComponent implements OnInit {
 
   trackSquareFn(_index: number, square: BoardSquareLocation): string {
     return `${square.x},${square.y}`;
+  }
+
+  private boardChanged(): void {
+    if (this.board && this.solution) {
+      if (this.board.isEquivalentTo(this.solution)) {
+        this.win();
+      }
+    }
+  }
+
+  private win(): void {
+    // TODO: fancier dialog
+    alert('You win!');
   }
 }

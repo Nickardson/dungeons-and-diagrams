@@ -114,6 +114,33 @@ export class Board {
       }
     }
   }
+
+  /**
+   * @param solution The actual solution
+   * @returns Whether the player set all the right squares to match the solution
+   */
+  public isEquivalentTo(solution: Board): boolean {
+    for (let square of solution) {
+      const thisSquare = this.getSquareAt(square.x, square.y);
+      switch (square.square) {
+        case BoardSquare.MarkedOpen:
+        case BoardSquare.Open:
+          if (thisSquare !== BoardSquare.MarkedOpen && thisSquare !== BoardSquare.Open) {
+            return false;
+          }
+          break;
+        case BoardSquare.Wall:
+          if (thisSquare !== BoardSquare.Wall) {
+            return false;
+          }
+          break;
+        default:
+        // The rest can't be changed or otherwise don't matter
+      }
+    }
+
+    return true;
+  }
 }
 
 class BoardIterator implements Iterator<BoardSquareLocation> {
