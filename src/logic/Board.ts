@@ -75,6 +75,20 @@ export class Board {
     return board;
   }
 
+  public static fromGameData(map: any): Board {
+    const board = new Board(8, 8, map.name);
+    for (let y = 0; y < board.height; y++) {
+      for (let x = 0; x < board.width; x++) {
+        const gameSquare = map.grid[y * board.width + x];
+        const square = gameSquare as BoardSquare;
+        if (square) {
+          board.setSquareAt(x, y, square);
+        }
+      }
+    }
+    return board;
+  }
+
   public clone(): Board {
     const newBoard = new Board(this.width, this.height, this.name);
     for (let y = 0; y < this.height; y++) {

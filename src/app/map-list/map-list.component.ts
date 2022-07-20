@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { data } from 'src/data/GameData';
 import { Board } from 'src/logic/Board';
 
 @Component({
@@ -26,35 +27,36 @@ X XXXX
     X!
 !XX   `
     }));
-    this.boards.push(Board.fromDefinition({
-      name: '1x1',
-      map: `
-     XXX
- X X   !
- X!X XXX
- XXX   !
-   X XXX
- $ X   !
-   X XXX
-XXXX   !`
-    }));
+    //     this.boards.push(Board.fromDefinition({
+    //       name: '1x1',
+    //       map: `
+    //      XXX
+    //  X X   !
+    //  X!X XXX
+    //  XXX   !
+    //    X XXX
+    //  $ X   !
+    //    X XXX
+    // XXXX   !`
+    //     }));
 
-//     this.boards.push(Board.fromDefinition({
-//       name: 'Tenaxxus\'s Gullet',
-//       map: `
-//      !  
-//         
-//  $      
-//         
-//         
-// !       
-//         
-//   !    !`
-//     }));
+    //     this.boards.push(Board.fromDefinition({
+    //       name: 'Tenaxxus\'s Gullet',
+    //       map: `
+    //      !  
+    //         
+    //  $      
+    //         
+    //         
+    // !       
+    //         
+    //   !    !`
+    //     }));
 
-    for (let i = 0; i < 4; i++) {
-      this.boards = this.boards.concat(this.boards);
-    }
+    data.maps.forEach(map => {
+      const board = Board.fromGameData(map);
+      this.boards.push(board);
+    });
   }
 
   chooseBoard(board: Board): void {

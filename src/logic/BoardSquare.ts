@@ -1,9 +1,9 @@
 
 export enum BoardSquare {
-  Open,
+  Open = 0,
+  Wall = 1,
+  Monster = 2,
+  TreasureChest = 3,
   MarkedOpen,
-  Wall,
   // TreasureRoom,
-  TreasureChest,
-  Monster
 }
