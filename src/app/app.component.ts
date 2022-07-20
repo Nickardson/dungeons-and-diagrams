@@ -9,20 +9,4 @@ import { BoardSquare } from "src/logic/BoardSquare";
 })
 export class AppComponent {
   title = 'dungeons-and-diagrams';
-
-  board: Board;
-  solution: Board;
-
-  constructor() {
-    this.solution = Board.fromString(`
-XXX  $
-X     
-X X   
-X XXXX
-    X!
-!XX   `);
-
-    this.board = this.solution.clone();
-    this.board.unsolve();
-  }
 }

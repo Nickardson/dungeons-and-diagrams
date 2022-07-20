@@ -42,6 +42,7 @@ export class Board {
   public static fromString(map: string): Board {
     const lines = map
       .split('\n')
+      .map(line => line.replace(/\r/g, ''))
       .filter(line => line.length > 0);
 
     if (lines.length === 0) {
