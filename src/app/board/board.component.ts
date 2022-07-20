@@ -72,7 +72,7 @@ export class BoardComponent implements OnInit {
   }
 
   onTouchStart(square: BoardSquareLocation): void {
-    console.log('Touch start');
+    // console.log('Touch start');
     if (square.square === BoardSquare.Open || square.square === BoardSquare.MarkedOpen) {
       this.board?.setSquareAt(square.x, square.y, BoardSquare.Wall);
       this.boardChanged();
@@ -85,7 +85,7 @@ export class BoardComponent implements OnInit {
   }
 
   onMouseDown(event: MouseEvent, square: BoardSquareLocation): void {
-    console.log('Mouse down');
+    // console.log('Mouse down');
     this.heldButtonSetsTo = this.performMouseAction(event.button, square);
 
     this.cdr.markForCheck();
@@ -122,7 +122,7 @@ export class BoardComponent implements OnInit {
   }
 
   onMouseEnter(square: BoardSquareLocation): void {
-    console.log('Mouse enter');
+    // console.log('Mouse enter', square);
     if (this.heldButtonSetsTo !== undefined) {
       switch (square.square) {
         case BoardSquare.MarkedOpen:
@@ -138,7 +138,7 @@ export class BoardComponent implements OnInit {
 
   @HostListener('window:mouseup', ['$event'])
   onMouseUpGlobal(event: MouseEvent): void {
-    console.log('Mouse up');
+    // console.log('Mouse up');
     if (this.heldButtonSetsTo !== undefined) {
       this.heldButtonSetsTo = undefined;
       this.cdr.markForCheck();
