@@ -1,3 +1,4 @@
+import { BoardDefinition } from "./BoardDefinition";
 import { BoardIterator } from "./BoardIterator";
 import { BoardSquare } from "./BoardSquare";
 
@@ -18,7 +19,8 @@ export class Board {
 
   constructor(
     public readonly width: number,
-    public readonly height: number
+    public readonly height: number,
+    public name: string,
   ) {
     this.grid = [];
     for (let h = 0; h < height; h++) {
@@ -39,20 +41,28 @@ export class Board {
     return lines.join('\n');
   }
 
-  public static fromString(map: string): Board {
+  public toDefinition(): BoardDefinition {
+    return {
+      map: this.toString(),
+      name: this.name,
+    };
+  }
+
+  public static fromDefinition(definition: BoardDefinition): Board {
+    const map = definition.map;
     const lines = map
       .split('\n')
       .map(line => line.replace(/\r/g, ''))
       .filter(line => line.length > 0);
 
     if (lines.length === 0) {
-      return new Board(0, 0);
+      return new Board(0, 0, definition.name);
     }
 
     const width = lines.reduce((acc, line) => Math.max(line.length, acc), 0);
     const height = lines.length;
 
-    const board = new Board(width, height);
+    const board = new Board(width, height, definition.name);
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < lines[y].length; x++) {
         const square = charsToSquares.get(lines[y].charAt(x));
@@ -66,7 +76,7 @@ export class Board {
   }
 
   public clone(): Board {
-    const newBoard = new Board(this.width, this.height);
+    const newBoard = new Board(this.width, this.height, this.name);
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         newBoard.setSquareAt(x, y, this.getSquareAt(x, y));
@@ -136,13 +146,13 @@ export class Board {
   }
 
   public countWallsInColumn(x: number): number {
-    const notWalls = this.getSquaresInColumn(x).filter(s => s !== BoardSquare.Wall);
-    return this.height - notWalls.length;
+    const walls = this.getSquaresInColumn(x).filter(s => s === BoardSquare.Wall);
+    return walls.length;
   }
 
   public countWallsInRow(y: number): number {
-    const notWalls = this.getSquaresInRow(y).filter(s => s !== BoardSquare.Wall);
-    return this.width - notWalls.length;
+    const walls = this.getSquaresInRow(y).filter(s => s === BoardSquare.Wall);
+    return walls.length;
   }
 
   public getSquaresInRow(y: number): BoardSquare[] {

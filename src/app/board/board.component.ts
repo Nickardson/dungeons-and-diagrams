@@ -17,6 +17,12 @@ export class BoardComponent implements OnInit {
   @Input()
   solution?: Board;
 
+  @Input()
+  showGuides = true;
+
+  @Input()
+  interactive = true;
+
   heldButtonSetsTo?: BoardSquare;
 
   constructor(
@@ -85,6 +91,10 @@ export class BoardComponent implements OnInit {
   }
 
   onMouseDown(event: MouseEvent, square: BoardSquareLocation): void {
+    if (!this.interactive) {
+      return;
+    }
+
     // console.log('Mouse down');
     this.heldButtonSetsTo = this.performMouseAction(event.button, square);
 
@@ -122,6 +132,10 @@ export class BoardComponent implements OnInit {
   }
 
   onMouseEnter(square: BoardSquareLocation): void {
+    if (!this.interactive) {
+      return;
+    }
+
     // console.log('Mouse enter', square);
     if (this.heldButtonSetsTo !== undefined) {
       switch (square.square) {

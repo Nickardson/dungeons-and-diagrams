@@ -1,0 +1,13 @@
+.maps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 10%);
+  // grid-template-rows: repeat(auto-fit, 10%);
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100vh;
+}
+
+app-board {
+  font-size: 10%;
+}

@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { MapComponent } from './map/map.component';
+import { MapListComponent } from './map-list/map-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
-    MapComponent
+    MapComponent,
+    MapListComponent,
   ],
   imports: [
     BrowserModule,

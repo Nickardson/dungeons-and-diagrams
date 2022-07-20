@@ -20,13 +20,7 @@ export class MapComponent implements OnInit {
     private readonly cdr: ChangeDetectorRef,
     private readonly route: ActivatedRoute,
   ) {
-    this.solution = Board.fromString(`
-XXX  $
-X     
-X X   
-X XXXX
-    X!
-!XX   `);
+    this.solution = new Board(6, 6, '???');
 
     this.board = this.solution.clone();
     this.board.unsolve();
@@ -39,7 +33,7 @@ X XXXX
         const stringDef = atob(base64Def);
         const definition = JSON.parse(stringDef) as BoardDefinition;
 
-        this.solution = Board.fromString(definition.map);
+        this.solution = Board.fromDefinition(definition);
         this.name = definition.name;
 
         this.resetBoard();
@@ -52,5 +46,6 @@ X XXXX
   resetBoard(): void {
     this.board = this.solution.clone();
     this.board.unsolve();
+    console.log('Solution loaded', this.solution);
   }
 }

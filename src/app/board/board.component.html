@@ -2,7 +2,7 @@
   [style.grid-template-rows]="'repeat(' + (board.height + 1 + 1) + ', ' + getGridSize() + ')'">
   <div class="outside"></div>
 
-  <ng-container *ngIf="solution">
+  <ng-container *ngIf="solution && showGuides">
     <div *ngFor="let count of solution.getColumnGuides(); index as index"
       [class.guide--complete]="solution && count === board.countWallsInColumn(index)"
       [class.guide--overboard]="solution && count < board.countWallsInColumn(index)" class="guide"
