@@ -1,0 +1,22 @@
+.actions {
+  position: fixed;
+
+  top: 1em;
+  right: 1em;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.actions button {
+  font-size: 5vmin;
+  background: none;
+  border: none;
+  color: #3e2b16;
+
+  cursor: pointer;
+}
+
+.actions button:hover {
+  color: #634625;
+}

@@ -42,11 +42,15 @@ X XXXX
         this.solution = Board.fromString(definition.map);
         this.name = definition.name;
 
-        this.board = this.solution.clone();
-        this.board.unsolve();
+        this.resetBoard();
 
         this.cdr.markForCheck();
       }
     })
+  }
+
+  resetBoard(): void {
+    this.board = this.solution.clone();
+    this.board.unsolve();
   }
 }
