@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/map/WFhYICAkDQpYICAgICANClggWCAgIA0KWCBYWFhYDQogICAgWCENCiFYWCAgIA=='
+    redirectTo: '/map/eyJuYW1lIjogIlRoZSBDdXJzZWQgS2lkZGllIFBvb2wiLCAibWFwIjogIlhYWCAgJFxyXG5YICAgICBcclxuWCBYICAgXHJcblggWFhYWFxyXG4gICAgWCFcclxuIVhYICAgIn0='
   }
 ];
 
