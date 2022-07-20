@@ -8,7 +8,7 @@
 .board {
   display: grid;
   // font-size: 2em;
-  font-size: 5vmin;
+  // font-size: 5vmin;
   cursor: default;
   user-select: none;
   width: fit-content;
@@ -16,7 +16,7 @@
 }
 
 .outside {
-  outline: 0.25em solid #402b15;
+  outline: 1.5em solid #402b15;
   grid-row: 2 / -2;
   grid-column: 2 / -2;
 }
@@ -28,15 +28,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  font-size: 6em;
 }
 
 .square {
   // border: 1px solid #988d82;
-  border: 0.05em solid #160d03;
+  border: 0.075em solid #160d03;
   // outline: 0.05em solid #988d82;
   // outline: 0.05em solid #160d03;
-  line-height: 1em;
-  font-size: 1.5em;
+  line-height: 5em;
 }
 
 .guide--complete {

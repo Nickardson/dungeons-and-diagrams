@@ -66,9 +66,9 @@ export class BoardComponent implements OnInit {
 
   getGridSize(): string {
     if (!this.board) {
-      return '10vmin';
+      return '10em';
     }
-    return ((100 / (Math.max(this.board.width, this.board.height) + 2))) + 'vmin';
+    return ((100 / (Math.max(this.board.width, this.board.height) + 2))) + 'em';
   }
 
   onTouchStart(square: BoardSquareLocation): void {
