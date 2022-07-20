@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/map/eyJuYW1lIjogIlRoZSBDdXJzZWQgS2lkZGllIFBvb2wiLCAibWFwIjogIlhYWCAgJFxyXG5YICAgICBcclxuWCBYICAgXHJcblggWFhYWFxyXG4gICAgWCFcclxuIVhYICAgIn0='
+    redirectTo: '/map/' + btoa(JSON.stringify({"name": "The Cursed Kiddie Pool", "map": "XXX  $\r\nX     \r\nX X   \r\nX XXXX\r\n    X!\r\n!XX   "}))
   }
 ];
 
